@@ -6,23 +6,28 @@ using UnityEngine.Networking;
 
 public class Car : NetworkBehaviour
 {
+    [System.Serializable]
+    public class AxleInfo
+    {
+        public WheelCollider leftWheel;
+        public WheelCollider rightWheel;
+        public bool motor; // is this wheel attached to motor?
+        public bool steering; // does this wheel apply steer angle?
+    }
+    public List<AxleInfo> axleInfos; // the information about each individual axle
+    public float maxMotorTorque; // maximum torque the motor can apply to wheel
+    public float maxSteeringAngle; // maximum steer angle the wheel can have
+    public float brakeTorque;
+    public float decelerationForce;
+
+    public float currentTorque;
+    public float currentBrake;
 
     public PlayerConnection Owner;
-    public float maxSpeed;
-    public float acceleration;
-    public float breaks;
-    public float rotationAngle = 30f;
-    private float speed;
-
-    public float wheelRotationMult;
-    public List<GameObject> wheels;
-
-
-    private Rigidbody rb;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+
     }
 
     void Start()
@@ -45,57 +50,56 @@ public class Car : NetworkBehaviour
 
     void FixedUpdate()
     {
-
         //if (hasAuthority)
         if (true)
         {
-            if (Input.GetKey(KeyCode.W))
+            float motor = maxMotorTorque * Input.GetAxis("Vertical");
+            float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
+
+            foreach (AxleInfo axleInfo in axleInfos)
             {
-                if (speed < 0f)
+                if (axleInfo.steering)
                 {
-                    speed += acceleration * Time.deltaTime;
+                    axleInfo.leftWheel.steerAngle = steering;
+                    axleInfo.rightWheel.steerAngle = steering;
                 }
-                speed += acceleration * Time.deltaTime;
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                speed -= breaks * Time.deltaTime;
-            }
+                if (axleInfo.motor)
+                {
+                    if (motor != 0f)
+                    {
+                        axleInfo.leftWheel.brakeTorque = 0f;
+                        axleInfo.rightWheel.brakeTorque = 0f;
+                        axleInfo.leftWheel.motorTorque = motor;
+                        axleInfo.rightWheel.motorTorque = motor;
+                    }
+                    else
+                    {
+                        axleInfo.leftWheel.brakeTorque = decelerationForce;
+                        axleInfo.rightWheel.brakeTorque = decelerationForce;
+                        axleInfo.leftWheel.motorTorque = 0.1f;
+                        axleInfo.rightWheel.motorTorque = 0.1f;
+                    }
+                }
 
-            speed = Mathf.Clamp(speed, -maxSpeed / 2f, maxSpeed);
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    axleInfo.leftWheel.brakeTorque = brakeTorque;
+                    axleInfo.rightWheel.brakeTorque = brakeTorque;
+                    axleInfo.leftWheel.motorTorque = 0.1f;
+                    axleInfo.rightWheel.motorTorque = 0.1f;
+                }
+                else if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    axleInfo.leftWheel.brakeTorque = 0f;
+                    axleInfo.rightWheel.brakeTorque = 0f;
+                }
+                    axleInfo.leftWheel.GetWorldPose(out Vector3 position, out Quaternion rotation);
+                axleInfo.leftWheel.transform.GetChild(0).position = position;
+                axleInfo.leftWheel.transform.GetChild(0).rotation = rotation;
 
-            if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-            {
-                Debug.Log("Derecha");
-                Quaternion deltaRotationRight = Quaternion.Euler(new Vector3(0f, rotationAngle, 0f) * Time.deltaTime);
-                rb.MoveRotation(rb.rotation * deltaRotationRight);
-                wheels[0].transform.localRotation = Quaternion.Euler(wheels[0].transform.rotation.x, rotationAngle, 0f);
-                wheels[1].transform.localRotation = Quaternion.Euler(wheels[1].transform.rotation.x, rotationAngle, 0f);
-            }
-            else if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-            {
-                Debug.Log("Izquierda");
-                Quaternion deltaRotationLeft = Quaternion.Euler(new Vector3(0f, -rotationAngle, 0f) * Time.deltaTime);
-                rb.MoveRotation(rb.rotation * deltaRotationLeft);
-                wheels[0].transform.localRotation = Quaternion.Euler(wheels[0].transform.rotation.x, -rotationAngle, 0f);
-                wheels[1].transform.localRotation = Quaternion.Euler(wheels[1].transform.rotation.x, -rotationAngle, 0f);
-            }
-            else //if ((Input.GetKeyUp(KeyCode.A) && !Input.GetKey(KeyCode.D)) || (Input.GetKeyUp(KeyCode.D) && !Input.GetKey(KeyCode.A)))
-            {
-                //Debug.Log("Recto");
-                wheels[0].transform.localRotation = Quaternion.Euler(wheels[0].transform.rotation.x, 0f, 0f);
-                wheels[1].transform.localRotation = Quaternion.Euler(wheels[1].transform.rotation.x, 0f, 0f);
-            }
-
-
-            float auxY = rb.velocity.y;
-            rb.velocity = transform.forward * speed;
-            rb.velocity = new Vector3(rb.velocity.x, auxY, rb.velocity.z);
-            //rb.MovePosition(transform.position + transform.forward * speed);
-
-            foreach (GameObject wheel in wheels)
-            {
-                wheel.transform.localRotation = Quaternion.Euler(rb.velocity.magnitude * wheelRotationMult, wheel.transform.localRotation.y, 0);
+                axleInfo.rightWheel.GetWorldPose(out position, out rotation);
+                axleInfo.rightWheel.transform.GetChild(0).position = position;
+                axleInfo.rightWheel.transform.GetChild(0).rotation = rotation;
             }
         }
 

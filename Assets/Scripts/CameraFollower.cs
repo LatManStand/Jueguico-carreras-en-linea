@@ -9,6 +9,7 @@ public class CameraFollower : MonoBehaviour
 
     public float distance = 15f;
     public float height = 8f;
+    public float lerpAmmount = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -16,17 +17,12 @@ public class CameraFollower : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
     void Update()
-    {
-
-    }
-
-    void LateUpdate()
     {
         transform.LookAt(following);
         Vector3 targetPos = following.position + following.forward * -distance;
         targetPos.y += height;
-        transform.position = Vector3.Lerp(transform.position, targetPos, 0.05f);
+        transform.position = Vector3.Lerp(transform.position, targetPos, lerpAmmount);
     }
 }
