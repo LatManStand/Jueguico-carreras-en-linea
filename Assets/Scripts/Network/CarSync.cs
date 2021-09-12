@@ -14,16 +14,34 @@ public class CarSync : NetworkBehaviour{
 
     private Car m_Car;
 
+    private bool sync = false;
+
     void Awake() {
 
         m_Car = GetComponent<Car>();
 
     }
 
-   
+    void Start() {
+
+        Invoke(nameof(StartSync), 0.1f);
+
+    }
+
+    private void StartSync() {
+
+        sync = true;
+
+    }
+
     void Update(){
 
-        SyncCar();
+        if (sync) {
+
+            SyncCar();
+
+        }
+        
         
     }
 
