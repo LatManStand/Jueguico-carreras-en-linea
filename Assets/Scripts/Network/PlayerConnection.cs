@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class PlayerConnection : NetworkBehaviour{
 
-    public Car carPrefab;
+    public GameObject carPrefab;
 
     /*
     void Start(){
@@ -36,11 +36,11 @@ public class PlayerConnection : NetworkBehaviour{
     private void CmdSpawnCar() {
 
         // Sera ejecutado en el servidor
-        Car car = Instantiate(carPrefab, transform.position, transform.rotation);
-        car.SetOwner(this);
+        GameObject car = Instantiate(carPrefab, transform.position, transform.rotation);
+        car.GetComponent<Car>().SetOwner(this);
 
         // El objeto existe solo en el server. Lo creamos en los clientes tambien
-        NetworkServer.SpawnWithClientAuthority(car.gameObject, connectionToClient);
+        NetworkServer.SpawnWithClientAuthority(car, connectionToClient);
 
     }
 

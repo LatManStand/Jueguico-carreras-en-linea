@@ -980,18 +980,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1323570066, guid: 9b0dd12705317ed4e97c9b8ec0575948, type: 3}
-      propertyPath: brakeTorque
-      value: 1e+9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1323570066, guid: 9b0dd12705317ed4e97c9b8ec0575948, type: 3}
-      propertyPath: maxMotorTorque
-      value: 10000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1323570066, guid: 9b0dd12705317ed4e97c9b8ec0575948, type: 3}
-      propertyPath: decelerationForce
-      value: 100000000
-      objectReference: {fileID: 0}
     - target: {fileID: 1323570067, guid: 9b0dd12705317ed4e97c9b8ec0575948, type: 3}
       propertyPath: m_AssetId.i0
       value: 155

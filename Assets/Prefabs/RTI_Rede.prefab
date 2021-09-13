@@ -899,7 +899,7 @@ GameObject:
   - component: {fileID: 1323570067}
   - component: {fileID: 6330264894045726267}
   m_Layer: 6
-  m_Name: RTI_Red
+  m_Name: RTI_Rede
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -961,10 +961,10 @@ MonoBehaviour:
     rightWheel: {fileID: 1067516639}
     motor: 1
     steering: 0
-  maxMotorTorque: 400
+  maxMotorTorque: 10000
   maxSteeringAngle: 35
-  brakeTorque: 100000000
-  decelerationForce: 10000000
+  brakeTorque: 1e+9
+  decelerationForce: 100000000
   currentTorque: 0
   currentBrake: 0
   Owner: {fileID: 0}
