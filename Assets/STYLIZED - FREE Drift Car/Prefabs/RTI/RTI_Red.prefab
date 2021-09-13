@@ -897,6 +897,7 @@ GameObject:
   - component: {fileID: 1323570068}
   - component: {fileID: 1323570066}
   - component: {fileID: 1323570067}
+  - component: {fileID: 6330264894045726267}
   m_Layer: 6
   m_Name: RTI_Red
   m_TagString: Untagged
@@ -964,6 +965,8 @@ MonoBehaviour:
   maxSteeringAngle: 35
   brakeTorque: 100000000
   decelerationForce: 10000000
+  currentTorque: 0
+  currentBrake: 0
   Owner: {fileID: 0}
 --- !u!114 &1323570067
 MonoBehaviour:
@@ -998,6 +1001,20 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &6330264894045726267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8149020181370999307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73317b7106350054e8a82059fd0658cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothFactor: 10
+  threshold: 0.1
 --- !u!1 &8783413195542957188
 GameObject:
   m_ObjectHideFlags: 0
