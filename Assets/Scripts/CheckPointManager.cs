@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckPointManager : MonoBehaviour
 {
-  
+    [System.Serializable]
     public struct CarCheckpoint
     {
         public Car car;
@@ -16,11 +16,11 @@ public class CheckPointManager : MonoBehaviour
         {
             car = _car;
             checkpointID = _checkpointID;
-            laps = 0;
+            laps = -1;
             totalCheckpoints = 0;
         }
 
-        public void ChangeCheckpoint(int id, bool newLap)
+        public CarCheckpoint ChangeCheckpoint(int id, bool newLap)
         {
             checkpointID = id;
             totalCheckpoints++;
@@ -28,13 +28,14 @@ public class CheckPointManager : MonoBehaviour
             {
                 laps++;
                 Debug.Log("Laps: " + laps);
-                if (laps == LapsManager.instance.lapsToWin) {
+                if (laps == LapsManager.instance.lapsToWin)
+                {
 
                     Debug.Log("Carrera Terminada");
 
                 }
-
             }
+            return this;
         }
     }
 
@@ -54,13 +55,12 @@ public class CheckPointManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        cars = new List<CarCheckpoint>();
-
     }
 
-    void Start() {
+    void Start()
+    {
 
-        
+
 
     }
 
@@ -80,7 +80,8 @@ public class CheckPointManager : MonoBehaviour
         {
             cars = new List<CarCheckpoint>();
         }
-        cars.Add(new CarCheckpoint(car, 0));
+        CarCheckpoint aux = new CarCheckpoint(car, 0);
+        cars.Add(aux);
         //cars.Sort((s1, s2) => s1.car.playerControllerId.CompareTo(s2.car.playerControllerId));
     }
 
@@ -100,24 +101,24 @@ public class CheckPointManager : MonoBehaviour
 
         if (aux != -1)
         {
-
-            Debug.Log("primer IF entra");
-
-            if (_checkpointID == checkpointsID[checkpointsID.IndexOf(cars[aux].checkpointID) + 1])
-                // Si ha llegado al siguiente checkpoint
+            if (_checkpointID == checkpointsID[0])
             {
-                cars[aux].ChangeCheckpoint(_checkpointID, false);
+                //Si ha terminado la vuelta
+                cars[aux] = cars[aux].ChangeCheckpoint(_checkpointID, true);
+                cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
+                Debug.Log("ha terminado la vuelta");
+            }
+            else if (_checkpointID == checkpointsID[checkpointsID.IndexOf(cars[aux].checkpointID) + 1])
+            {
+                Debug.Log("primer IF entra");
+
+                // Si ha llegado al siguiente checkpoint
+                cars[aux] = cars[aux].ChangeCheckpoint(_checkpointID, false);
                 cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
                 Debug.Log("siguiente Checkpoint");
 
             }
-            else if (_checkpointID == checkpointsID.IndexOf(cars[aux].checkpointID) + 1)
-            {
-                //Si ha terminado la vuelta
-                cars[aux].ChangeCheckpoint(_checkpointID, true);
-                cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
-                Debug.Log("ha terminado la vuelta");
-            }
+
         }
     }
 
