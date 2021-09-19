@@ -36,8 +36,8 @@ public class Car : NetworkBehaviour
 
         selectedCar = FindObjectOfType<SelectedCarManager>();
         body.mesh = selectedCar.currentMesh;
-       
 
+        CheckPointManager.instance.StartCars(this);
 
     }
 
