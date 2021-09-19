@@ -98,7 +98,7 @@ public class Car : NetworkBehaviour
                     axleInfo.leftWheel.brakeTorque = 0f;
                     axleInfo.rightWheel.brakeTorque = 0f;
                 }
-                    axleInfo.leftWheel.GetWorldPose(out Vector3 position, out Quaternion rotation);
+                axleInfo.leftWheel.GetWorldPose(out Vector3 position, out Quaternion rotation);
                 axleInfo.leftWheel.transform.GetChild(0).position = position;
                 axleInfo.leftWheel.transform.GetChild(0).rotation = rotation;
 
@@ -114,6 +114,18 @@ public class Car : NetworkBehaviour
     private void GetInputs()
     {
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            transform.rotation = Quaternion.identity;
+            foreach (AxleInfo axleInfo in axleInfos)
+            {
+                axleInfo.leftWheel.brakeTorque = 0.1f;
+                axleInfo.rightWheel.brakeTorque = 0.1f;
+                axleInfo.leftWheel.motorTorque = 0.1f;
+                axleInfo.rightWheel.motorTorque = 0.1f;
+            }
+        }
 
 
     }
@@ -141,7 +153,8 @@ public class Car : NetworkBehaviour
 
     }
 
-    internal void SetColor(Mesh color) {
+    internal void SetColor(Mesh color)
+    {
 
         body.mesh = color;
 
