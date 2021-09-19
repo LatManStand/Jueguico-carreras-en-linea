@@ -35,9 +35,9 @@ public class Car : NetworkBehaviour
     {
 
         selectedCar = FindObjectOfType<SelectedCarManager>();
+        CheckPointManager.instance.StartCars(this);
         body.mesh = selectedCar.currentMesh;
 
-        CheckPointManager.instance.StartCars(this);
 
     }
 
@@ -135,8 +135,8 @@ public class Car : NetworkBehaviour
             transform.rotation = Quaternion.identity;
             foreach (AxleInfo axleInfo in axleInfos)
             {
-                axleInfo.leftWheel.brakeTorque = 0.1f;
-                axleInfo.rightWheel.brakeTorque = 0.1f;
+                //axleInfo.leftWheel.brakeTorque = 0.1f;
+                //axleInfo.rightWheel.brakeTorque = 0.1f;
                 axleInfo.leftWheel.motorTorque = 0.1f;
                 axleInfo.rightWheel.motorTorque = 0.1f;
             }
