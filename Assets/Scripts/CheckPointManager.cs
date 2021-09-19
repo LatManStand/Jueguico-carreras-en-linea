@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CheckPointManager : MonoBehaviour
 {
+  
     public struct CarCheckpoint
     {
         public Car car;
@@ -26,6 +27,13 @@ public class CheckPointManager : MonoBehaviour
             if (newLap)
             {
                 laps++;
+                Debug.Log("Laps: " + laps);
+                if (laps == LapsManager.instance.lapsToWin) {
+
+                    Debug.Log("Carrera Terminada");
+
+                }
+
             }
         }
     }
@@ -45,8 +53,16 @@ public class CheckPointManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        cars = new List<CarCheckpoint>();
+
     }
 
+    void Start() {
+
+        
+
+    }
 
     public void StartingCheckpoints(int checkpointID)
     {
@@ -80,19 +96,27 @@ public class CheckPointManager : MonoBehaviour
             }
         }
 
+        Debug.Log(aux);
+
         if (aux != -1)
         {
-            if (_checkpointID == checkpointsID.IndexOf(cars[aux].checkpointID) + 1)
+
+            Debug.Log("primer IF entra");
+
+            if (_checkpointID == checkpointsID[checkpointsID.IndexOf(cars[aux].checkpointID) + 1])
                 // Si ha llegado al siguiente checkpoint
             {
                 cars[aux].ChangeCheckpoint(_checkpointID, false);
                 cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
+                Debug.Log("siguiente Checkpoint");
+
             }
             else if (cars[aux].checkpointID == checkpointsID[checkpointsID.Count - 1] && _checkpointID == checkpointsID[0])
             {
                 //Si ha terminado la vuelta
                 cars[aux].ChangeCheckpoint(_checkpointID, true);
                 cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
+                Debug.Log("ha terminado la vuelta");
             }
         }
     }
