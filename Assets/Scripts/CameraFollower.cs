@@ -6,6 +6,7 @@ using UnityEngine;
 public class CameraFollower : MonoBehaviour
 {
 	public Transform car;
+	public bool hasCar = false;
 	public float distance = 6.4f;
 	public float height = 1.4f;
 	public float rotationDamping = 3.0f;
@@ -17,6 +18,8 @@ public class CameraFollower : MonoBehaviour
 
 	void LateUpdate()
 	{
+		if (hasCar) {
+
 		float wantedAngle = rotationVector.y;
 		float wantedHeight = car.position.y + height;
 		float myAngle = transform.eulerAngles.y;
@@ -32,10 +35,14 @@ public class CameraFollower : MonoBehaviour
 		temp.y = myHeight;
 		transform.position = temp;
 		transform.LookAt(car);
+
+		}
 	}
 
 	void FixedUpdate()
 	{
+		if (hasCar) {
+
 		Vector3 localVelocity = car.InverseTransformDirection(car.GetComponent<Rigidbody>().velocity);
 		if (localVelocity.z < -0.1f)
 		{
@@ -51,6 +58,7 @@ public class CameraFollower : MonoBehaviour
 		}
 		float acc = car.GetComponent<Rigidbody>().velocity.magnitude;
 		GetComponent<Camera>().fieldOfView = defaultFOV + acc * zoomRatio * Time.deltaTime;  //he removed * Time.deltaTime but it works better if you leave it like this.
+		}
 	}
 }
 

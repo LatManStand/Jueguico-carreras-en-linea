@@ -31,7 +31,7 @@ public class SceneLoader : MonoBehaviour{
 
         if (Input.GetKeyDown(KeyCode.Space)) {
 
-            SceneManager.LoadScene("_Jaime");
+            SceneManager.LoadScene("_Raul");
 
         }
 

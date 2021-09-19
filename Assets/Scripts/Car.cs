@@ -35,6 +35,7 @@ public class Car : NetworkBehaviour
     {
         selectedCar = FindObjectOfType<SelectedCarManager>();
         body.mesh = selectedCar.currentMesh;
+       
 
 
     }
@@ -43,18 +44,32 @@ public class Car : NetworkBehaviour
     void Update()
     {
 
-        //if (hasAuthority)
-        if (true)
-        {
+        if (hasAuthority) {
+            //if (true)
+
 
             GetInputs();
+
+            if (Input.GetKeyDown(KeyCode.Z)) {
+
+                
+                //Recover();
+
+            }
+
         }
+
+    }
+
+    private void Recover() {
+
+        //transform.position;
 
     }
 
     void FixedUpdate()
     {
-        //if (hasAuthority)
+        if (hasAuthority)
         if (true)
         {
             float motor = maxMotorTorque * Input.GetAxis("Vertical");

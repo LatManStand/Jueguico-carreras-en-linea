@@ -19,12 +19,22 @@ public class CarSync : NetworkBehaviour{
     void Awake() {
 
         m_Car = GetComponent<Car>();
+        
+
+        if (m_Car.HasAuthority()) {
+
+            
+            
+      
+
+        }
 
     }
 
     void Start() {
 
         Invoke(nameof(StartSync), 0.1f);
+        
 
     }
 
@@ -32,6 +42,7 @@ public class CarSync : NetworkBehaviour{
 
         sync = true;
 
+        /*
         if (m_Car.HasAuthority()) {
 
             CmdSendColorData(m_Car.body.mesh);
@@ -41,6 +52,7 @@ public class CarSync : NetworkBehaviour{
             SyncColorCars(m_Car.body.mesh);
 
         }
+        */
 
     }
 
@@ -58,10 +70,17 @@ public class CarSync : NetworkBehaviour{
     private void SyncCar() {
 
         if (m_Car.HasAuthority()) {
-
+            
             SendData();
 
-        }else {
+            if (!FindObjectOfType<CameraFollower>().hasCar) {
+                FindObjectOfType<CameraFollower>().car = this.transform;
+                FindObjectOfType<CameraFollower>().hasCar = true;
+            
+            }
+
+        }
+        else {
 
             SyncOtherCars();
 
@@ -99,7 +118,7 @@ public class CarSync : NetworkBehaviour{
         RpcRecieveTransformData(m_LastPosition, m_LastRotation);
 
     }
-
+    /*
     [Command]
     private void CmdSendColorData(Mesh color) {
 
@@ -108,6 +127,7 @@ public class CarSync : NetworkBehaviour{
         RpcRecieveColorData(m_Car.body.mesh);
 
     }
+    */
 
     [ClientRpc]
     private void RpcRecieveTransformData(Vector3 position, Quaternion rotation) {
@@ -125,6 +145,7 @@ public class CarSync : NetworkBehaviour{
 
     }
 
+    /*
     [ClientRpc]
     private void RpcRecieveColorData(Mesh color) {
 
@@ -136,6 +157,6 @@ public class CarSync : NetworkBehaviour{
 
 
     }
-
+    */
 
 }
