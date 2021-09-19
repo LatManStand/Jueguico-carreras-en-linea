@@ -31,7 +31,16 @@ public class CheckPointManager : MonoBehaviour
                 if (laps == LapsManager.instance.lapsToWin)
                 {
 
-                    Debug.Log("Carrera Terminada");
+                    if (car.HasAuthority()) {
+                    
+                        Debug.Log("Ganador");
+
+                    }else {
+
+                        Debug.Log("Ganador");
+
+                    }
+
 
                 }
             }

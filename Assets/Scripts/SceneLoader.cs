@@ -27,13 +27,9 @@ public class SceneLoader : MonoBehaviour{
     }
 
 
-    void Update() {
+    public void ChangeScene(string scene) {
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
-
-            SceneManager.LoadScene("_Raul");
-
-        }
+        SceneManager.LoadScene(scene);
 
     }
 
