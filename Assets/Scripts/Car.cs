@@ -25,13 +25,17 @@ public class Car : NetworkBehaviour
 
     public PlayerConnection Owner;
 
-    private void Awake()
-    {
+    public SelectedCarManager selectedCar;
 
-    }
+    public MeshFilter body;
+
+
 
     void Start()
     {
+        selectedCar = FindObjectOfType<SelectedCarManager>();
+        body.mesh = selectedCar.currentMesh;
+
 
     }
 
@@ -136,9 +140,18 @@ public class Car : NetworkBehaviour
 
     }
 
+    internal void SetColor(Mesh color) {
+
+        body.mesh = color;
+
+    }
+
+
     public void SetOwner(PlayerConnection player)
     {
         this.Owner = player;
     }
+
+
 
 }

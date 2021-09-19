@@ -19,9 +19,12 @@ public class CarSelectorManager : MonoBehaviour{
     public Mesh orangeCar;
     public Mesh grayCar;
 
+    public SelectedCarManager selectedCar;
+
     void Start() {
 
         body = currentBody.GetComponent<MeshFilter>();
+        selectedCar.currentMesh = redCar;
 
     }
 
@@ -35,12 +38,13 @@ public class CarSelectorManager : MonoBehaviour{
     public void SetRedCar() {
 
         body.mesh = redCar;
-
+        selectedCar.currentMesh = redCar;
     }
 
     public void SetYellowCar() {
 
         body.mesh = yellowCar;
+        selectedCar.currentMesh = yellowCar;
 
     }
 
@@ -48,18 +52,21 @@ public class CarSelectorManager : MonoBehaviour{
     public void SetDarkBlueCar() {
 
         body.mesh = darkBlueCar;
+        selectedCar.currentMesh = darkBlueCar;
 
     }
 
     public void SetBlueCar() {
 
         body.mesh = blueCar;
+        selectedCar.currentMesh = blueCar;
 
     }
 
     public void SetOrangeCar() {
 
         body.mesh = orangeCar;
+        selectedCar.currentMesh = orangeCar;
 
     }
 
@@ -67,6 +74,7 @@ public class CarSelectorManager : MonoBehaviour{
     public void SetGrayCar() {
 
         body.mesh = grayCar;
+        selectedCar.currentMesh = grayCar;
 
     }
 

@@ -32,6 +32,16 @@ public class CarSync : NetworkBehaviour{
 
         sync = true;
 
+        if (m_Car.HasAuthority()) {
+
+            CmdSendColorData(m_Car.body.mesh);
+
+        }else {
+
+            SyncColorCars(m_Car.body.mesh);
+
+        }
+
     }
 
     void Update(){
@@ -66,6 +76,12 @@ public class CarSync : NetworkBehaviour{
 
     }
 
+    private void SyncColorCars(Mesh color) {
+
+        m_Car.SetColor(color);
+
+    }
+
     private void SendData() {
 
         CmdSendTransformData(m_Car.transform.position, m_Car.transform.rotation);
@@ -84,6 +100,15 @@ public class CarSync : NetworkBehaviour{
 
     }
 
+    [Command]
+    private void CmdSendColorData(Mesh color) {
+
+        m_Car.body.mesh = color;
+
+        RpcRecieveColorData(m_Car.body.mesh);
+
+    }
+
     [ClientRpc]
     private void RpcRecieveTransformData(Vector3 position, Quaternion rotation) {
 
@@ -99,4 +124,18 @@ public class CarSync : NetworkBehaviour{
         }
 
     }
+
+    [ClientRpc]
+    private void RpcRecieveColorData(Mesh color) {
+
+        if (!m_Car.HasAuthority()) {
+
+            m_Car.body.mesh = color;
+
+        }
+
+
+    }
+
+
 }
