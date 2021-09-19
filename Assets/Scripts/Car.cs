@@ -33,6 +33,7 @@ public class Car : NetworkBehaviour
 
     void Start()
     {
+
         selectedCar = FindObjectOfType<SelectedCarManager>();
         body.mesh = selectedCar.currentMesh;
 

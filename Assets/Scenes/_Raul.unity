@@ -1509,6 +1509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c1cbd082d59f549a3269637d3ff50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpointsID: 
 --- !u!4 &792066171
 Transform:
   m_ObjectHideFlags: 0
@@ -2178,6 +2179,8 @@ MonoBehaviour:
   currentTorque: 0
   currentBrake: 0
   Owner: {fileID: 0}
+  selectedCar: {fileID: 0}
+  body: {fileID: 0}
 --- !u!114 &1089918977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3950,7 +3953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6172899006320222624, guid: 1824f1f43abf111439a34e0a089e8e82, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 6.95
       objectReference: {fileID: 0}
     - target: {fileID: 6172899006320222624, guid: 1824f1f43abf111439a34e0a089e8e82, type: 3}
       propertyPath: m_LocalRotation.w

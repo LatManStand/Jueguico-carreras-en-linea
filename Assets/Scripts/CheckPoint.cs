@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int id;
+
+    private void Start()
     {
-        
+        CheckPointManager.instance.StartingCheckpoints(id);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Car"))
+        {
+            CheckPointManager.instance.CheckpointPassed(id, other.GetComponent<Car>());
+        }
     }
+
 }
