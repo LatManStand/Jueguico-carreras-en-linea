@@ -83,12 +83,14 @@ public class CheckPointManager : MonoBehaviour
         if (aux != -1)
         {
             if (_checkpointID == checkpointsID.IndexOf(cars[aux].checkpointID) + 1)
+                // Si ha llegado al siguiente checkpoint
             {
                 cars[aux].ChangeCheckpoint(_checkpointID, false);
                 cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
             }
-            if (_checkpointID == checkpointsID[checkpointsID.Count - 1] && _checkpointID == checkpointsID[0])
+            else if (cars[aux].checkpointID == checkpointsID[checkpointsID.Count - 1] && _checkpointID == checkpointsID[0])
             {
+                //Si ha terminado la vuelta
                 cars[aux].ChangeCheckpoint(_checkpointID, true);
                 cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
             }
