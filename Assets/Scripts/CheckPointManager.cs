@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CheckPointManager : MonoBehaviour
 {
+    public GameObject canvas;
+    public TMPro.TMP_Text finishText;
+
     [System.Serializable]
     public struct CarCheckpoint
     {
@@ -30,14 +33,15 @@ public class CheckPointManager : MonoBehaviour
                 Debug.Log("Laps: " + laps);
                 if (laps == LapsManager.instance.lapsToWin)
                 {
-
+                    CheckPointManager.instance.canvas.SetActive(true);
                     if (car.HasAuthority()) {
-                    
-                        Debug.Log("Ganador");
 
-                    }else {
+                        CheckPointManager.instance.finishText.text = "Ganador";
 
-                        Debug.Log("Ganador");
+                    }
+                    else {
+
+                        CheckPointManager.instance.finishText.text = "Perdedor";
 
                     }
 

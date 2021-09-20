@@ -51,22 +51,11 @@ public class Car : NetworkBehaviour
 
             GetInputs();
 
-            if (Input.GetKeyDown(KeyCode.Z)) {
-
-                
-                //Recover();
-
-            }
 
         }
 
     }
 
-    private void Recover() {
-
-        //transform.position;
-
-    }
 
     void FixedUpdate()
     {

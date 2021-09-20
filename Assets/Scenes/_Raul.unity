@@ -1940,6 +1940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c1cbd082d59f549a3269637d3ff50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 683137572}
+  finishText: {fileID: 751020249}
   checkpointsID: 
   cars: []
 --- !u!4 &792066171
@@ -3522,6 +3524,18 @@ PrefabInstance:
     - target: {fileID: 5751797327859417487, guid: 470983816b1f6c9499d22f38d8c02b65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751797328030176278, guid: 470983816b1f6c9499d22f38d8c02b65, type: 3}
+      propertyPath: m_CustomConfig
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751797328030176278, guid: 470983816b1f6c9499d22f38d8c02b65, type: 3}
+      propertyPath: m_Channels.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751797328030176278, guid: 470983816b1f6c9499d22f38d8c02b65, type: 3}
+      propertyPath: m_Channels.Array.data[0]
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5751797328531530038, guid: 470983816b1f6c9499d22f38d8c02b65, type: 3}
       propertyPath: menuCanvas
