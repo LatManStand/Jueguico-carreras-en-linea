@@ -30,10 +30,14 @@ public class Car : NetworkBehaviour
     public MeshFilter body;
 
 
+    public static int instanciatedCars = 0;
+    public int carID;
+
 
     void Start()
     {
-
+        carID = instanciatedCars;
+        instanciatedCars++;
         selectedCar = FindObjectOfType<SelectedCarManager>();
         CheckPointManager.instance.StartCars(this);
         body.mesh = selectedCar.currentMesh;
@@ -45,7 +49,8 @@ public class Car : NetworkBehaviour
     void Update()
     {
 
-        if (hasAuthority) {
+        if (hasAuthority)
+        {
             //if (true)
 
 
@@ -60,57 +65,57 @@ public class Car : NetworkBehaviour
     void FixedUpdate()
     {
         if (hasAuthority)
-        if (true)
-        {
-            float motor = maxMotorTorque * Input.GetAxis("Vertical");
-            float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
-
-            foreach (AxleInfo axleInfo in axleInfos)
+            if (true)
             {
-                if (axleInfo.steering)
+                float motor = maxMotorTorque * Input.GetAxis("Vertical");
+                float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
+
+                foreach (AxleInfo axleInfo in axleInfos)
                 {
-                    axleInfo.leftWheel.steerAngle = steering;
-                    axleInfo.rightWheel.steerAngle = steering;
-                }
-                if (axleInfo.motor)
-                {
-                    if (motor != 0f)
+                    if (axleInfo.steering)
                     {
-                        axleInfo.leftWheel.brakeTorque = 0f;
-                        axleInfo.rightWheel.brakeTorque = 0f;
-                        axleInfo.leftWheel.motorTorque = motor;
-                        axleInfo.rightWheel.motorTorque = motor;
+                        axleInfo.leftWheel.steerAngle = steering;
+                        axleInfo.rightWheel.steerAngle = steering;
                     }
-                    else
+                    if (axleInfo.motor)
                     {
-                        axleInfo.leftWheel.brakeTorque = decelerationForce;
-                        axleInfo.rightWheel.brakeTorque = decelerationForce;
+                        if (motor != 0f)
+                        {
+                            axleInfo.leftWheel.brakeTorque = 0f;
+                            axleInfo.rightWheel.brakeTorque = 0f;
+                            axleInfo.leftWheel.motorTorque = motor;
+                            axleInfo.rightWheel.motorTorque = motor;
+                        }
+                        else
+                        {
+                            axleInfo.leftWheel.brakeTorque = decelerationForce;
+                            axleInfo.rightWheel.brakeTorque = decelerationForce;
+                            axleInfo.leftWheel.motorTorque = 0.1f;
+                            axleInfo.rightWheel.motorTorque = 0.1f;
+                        }
+                    }
+
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        axleInfo.leftWheel.brakeTorque = brakeTorque;
+                        axleInfo.rightWheel.brakeTorque = brakeTorque;
                         axleInfo.leftWheel.motorTorque = 0.1f;
                         axleInfo.rightWheel.motorTorque = 0.1f;
                     }
-                }
+                    else if (Input.GetKeyUp(KeyCode.Space))
+                    {
+                        axleInfo.leftWheel.brakeTorque = 0f;
+                        axleInfo.rightWheel.brakeTorque = 0f;
+                    }
+                    axleInfo.leftWheel.GetWorldPose(out Vector3 position, out Quaternion rotation);
+                    axleInfo.leftWheel.transform.GetChild(0).position = position;
+                    axleInfo.leftWheel.transform.GetChild(0).rotation = rotation;
 
-                if (Input.GetKey(KeyCode.Space))
-                {
-                    axleInfo.leftWheel.brakeTorque = brakeTorque;
-                    axleInfo.rightWheel.brakeTorque = brakeTorque;
-                    axleInfo.leftWheel.motorTorque = 0.1f;
-                    axleInfo.rightWheel.motorTorque = 0.1f;
+                    axleInfo.rightWheel.GetWorldPose(out position, out rotation);
+                    axleInfo.rightWheel.transform.GetChild(0).position = position;
+                    axleInfo.rightWheel.transform.GetChild(0).rotation = rotation;
                 }
-                else if (Input.GetKeyUp(KeyCode.Space))
-                {
-                    axleInfo.leftWheel.brakeTorque = 0f;
-                    axleInfo.rightWheel.brakeTorque = 0f;
-                }
-                axleInfo.leftWheel.GetWorldPose(out Vector3 position, out Quaternion rotation);
-                axleInfo.leftWheel.transform.GetChild(0).position = position;
-                axleInfo.leftWheel.transform.GetChild(0).rotation = rotation;
-
-                axleInfo.rightWheel.GetWorldPose(out position, out rotation);
-                axleInfo.rightWheel.transform.GetChild(0).position = position;
-                axleInfo.rightWheel.transform.GetChild(0).rotation = rotation;
             }
-        }
 
     }
 
