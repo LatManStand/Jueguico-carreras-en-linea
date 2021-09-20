@@ -30,7 +30,7 @@ public class SceneLoader : MonoBehaviour{
     public void ChangeScene(string scene) {
 
         SceneManager.LoadScene(scene);
-
+        Time.timeScale = 1;
     }
 
 
