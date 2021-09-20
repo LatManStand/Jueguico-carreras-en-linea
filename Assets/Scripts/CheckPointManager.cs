@@ -19,7 +19,7 @@ public class CheckPointManager : MonoBehaviour
         {
             car = _car;
             checkpointID = _checkpointID;
-            laps = -1;
+            laps = 0;
             totalCheckpoints = 0;
         }
 
@@ -34,12 +34,14 @@ public class CheckPointManager : MonoBehaviour
                 if (laps == LapsManager.instance.lapsToWin)
                 {
                     CheckPointManager.instance.canvas.SetActive(true);
-                    if (car.HasAuthority()) {
+                    if (car.HasAuthority())
+                    {
 
                         CheckPointManager.instance.finishText.text = "Ganador";
 
                     }
-                    else {
+                    else
+                    {
 
                         CheckPointManager.instance.finishText.text = "Perdedor";
 
@@ -114,7 +116,7 @@ public class CheckPointManager : MonoBehaviour
 
         if (aux != -1)
         {
-            if (_checkpointID == checkpointsID[0])
+            if (_checkpointID == checkpointsID[0] && cars[aux].checkpointID == checkpointsID[checkpointsID.Count - 1])
             {
                 //Si ha terminado la vuelta
                 cars[aux] = cars[aux].ChangeCheckpoint(_checkpointID, true);
