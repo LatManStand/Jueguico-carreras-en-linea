@@ -403,7 +403,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.514151, g: 0.85612684, b: 1, a: 1}
   m_Intensity: 5
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 56
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -674,7 +674,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.514151, g: 0.85612684, b: 1, a: 1}
   m_Intensity: 5
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 56
   m_InnerSpotAngle: 6
   m_CookieSize: 10
@@ -970,6 +970,7 @@ MonoBehaviour:
   Owner: {fileID: 0}
   selectedCar: {fileID: 0}
   body: {fileID: 2150146158082443072}
+  carID: 0
 --- !u!114 &1323570067
 MonoBehaviour:
   m_ObjectHideFlags: 0

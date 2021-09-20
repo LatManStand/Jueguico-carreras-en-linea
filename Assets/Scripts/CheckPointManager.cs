@@ -98,11 +98,12 @@ public class CheckPointManager : MonoBehaviour
         }
         CarCheckpoint aux = new CarCheckpoint(car, 0);
         cars.Add(aux);
-        //cars.Sort((s1, s2) => s1.car.playerControllerId.CompareTo(s2.car.playerControllerId));
+        cars.Sort((s1, s2) => s1.car.carID.CompareTo(s2.car.carID));
     }
 
     public void CheckpointPassed(int _checkpointID, Car _car)
     {
+        /*
         int aux = -1;
         for (int i = 0; i < cars.Count; i++)
         {
@@ -112,6 +113,9 @@ public class CheckPointManager : MonoBehaviour
                 i = cars.Count;
             }
         }
+        */
+
+        int aux = _car.carID;
 
         Debug.Log(aux);
 
