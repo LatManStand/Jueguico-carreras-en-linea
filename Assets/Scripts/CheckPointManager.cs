@@ -98,7 +98,8 @@ public class CheckPointManager : MonoBehaviour
         }
         CarCheckpoint aux = new CarCheckpoint(car, 0);
         cars.Add(aux);
-        cars.Sort((s1, s2) => s1.car.carID.CompareTo(s2.car.carID));
+        car.carID = cars.Count - 1;
+        //cars.Sort((s1, s2) => s2.car.carID.CompareTo(s1.car.carID));
     }
 
     public void CheckpointPassed(int _checkpointID, Car _car)
