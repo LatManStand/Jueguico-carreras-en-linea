@@ -118,7 +118,7 @@ public class CheckPointManager : MonoBehaviour
 
         int aux = _car.carID;
 
-        Debug.Log(aux);
+        Debug.Log("Aux: " +aux);
 
         if (aux != -1)
         {
@@ -126,16 +126,14 @@ public class CheckPointManager : MonoBehaviour
             {
                 //Si ha terminado la vuelta
                 cars[aux] = cars[aux].ChangeCheckpoint(_checkpointID, true);
-                cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
+                //cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
                 Debug.Log("ha terminado la vuelta");
             }
             else if (_checkpointID == checkpointsID[checkpointsID.IndexOf(cars[aux].checkpointID) + 1])
             {
-                Debug.Log("primer IF entra");
-
                 // Si ha llegado al siguiente checkpoint
                 cars[aux] = cars[aux].ChangeCheckpoint(_checkpointID, false);
-                cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
+                //cars.Sort((s1, s2) => s1.totalCheckpoints.CompareTo(s2.totalCheckpoints));
                 Debug.Log("siguiente Checkpoint");
 
             }

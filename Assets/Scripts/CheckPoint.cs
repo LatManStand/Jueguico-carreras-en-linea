@@ -16,7 +16,7 @@ public class CheckPoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             CheckPointManager.instance.CheckpointPassed(id, other.transform.root.GetComponent<Car>());
-            Debug.Log("ID: "+ id);
+            Debug.Log("CheckpointID: "+ id);
         }
     }
 
