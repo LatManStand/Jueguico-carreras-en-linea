@@ -31,13 +31,14 @@ public class CheckPointManager : MonoBehaviour
                 if (laps == LapsManager.instance.lapsToWin)
                 {
 
-                    if (car.HasAuthority()) {
+                    //if (car.HasAuthority()) {
+                    if (true) {
                     
                         Debug.Log("Ganador");
 
                     }else {
 
-                        Debug.Log("Ganador");
+                        Debug.Log("Perdedor");
 
                     }
 
