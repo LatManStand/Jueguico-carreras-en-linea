@@ -34,8 +34,9 @@ public class CheckPointManager : MonoBehaviour
                 if (laps == LapsManager.instance.lapsToWin)
                 {
                     CheckPointManager.instance.canvas.SetActive(true);
-                    if (car.HasAuthority())
-                    {
+
+                    Time.timeScale = 0;
+                    if (car.HasAuthority()) {
 
                         CheckPointManager.instance.finishText.text = "Ganador";
 
